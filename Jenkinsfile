@@ -18,9 +18,20 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('Test') {
+        stage('Docker Build') {
             steps {
-                sh 'mvn test'
+                script {
+                    docker.build env.DOCKER_IMAGE
+                }
+            }
+        }
+        
+        stage('Docker Push') {
+            steps {
+                script {
+                    docker.image(env.DOCKER_IMAGE).push(
+                    }
+                }
             }
         }
     }
