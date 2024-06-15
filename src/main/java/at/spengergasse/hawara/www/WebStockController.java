@@ -39,7 +39,7 @@ public class WebStockController {
     }
 
 
-    @PostMapping("/addStock")
+/*    @PostMapping("/addStock")
     public String register(@ModelAttribute("StockRequest") Stock stock, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "stock/addstock";
@@ -55,7 +55,7 @@ public class WebStockController {
                 company(companyRepository.findByName(stock.getCompany().toString())).
                 user(stock.getUser()).build());
         return "redirect:/stock/all";
-    }
+    }*/
     @GetMapping("/updateStock/{name}")
     public String updateStock(Model model, @PathVariable String name) {
         Optional<Stock> stock = stockRepository.findById(name);
