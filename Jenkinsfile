@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/CroissantSeller/bap-2024.git'
+                git branch: 'main', url: 'https://github.com/CroissantSeller/bap-2024.git'
             }
         }
         stage('Build') {
