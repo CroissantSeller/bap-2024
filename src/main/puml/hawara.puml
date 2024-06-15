@@ -1,0 +1,97 @@
+@startuml
+
+class Stock{
+ -stockName:String
+ -value:Float
+ -todaysDate:Date
+ -lastDate:Date
+ -company:Company
+ }
+
+entity Company{
+ -name:String
+ -amountOfShares:Integer
+ -valuePerShare:Float
+ -lastDividendPayment:Integer
+}
+
+class StockList{
+ -stockList:ArrayList<Stock>
+}
+
+entity User{
+ -email:Email
+ -password:Password
+ -username:Username
+}
+
+class Assets{
+ -income:ArrayList<Income>
+ -expenses:ArrayList<Expenses>
+ -totalAssets:Float
+ -history:ArrayList<Float>
+}
+
+entity IncomeSources{
+ -amount:Float
+ -incomeCategory:IncomeCategories
+ -date:Date
+}
+
+entity ExpensesSources{
+ -amount:Float
+ -expensesCategory:ExpensesCategories
+ -date:Date
+}
+
+class Email<< (V, #229988) Embeddable>>{
+ -address:String
+}
+
+class Password<< (V, #229988) Embeddable>>{
+ -password:String
+}
+
+class Username<< (V, #229988) Embeddable>>{
+ -username:String
+}
+
+enum IncomeCategories{
+ Salary / Fixed income
+ Investment income
+ Bonus
+ Sales
+ Tax
+ Miscellanious
+}
+enum ExpensesCategories{
+ Food
+ Rent
+ Utilities
+ Loan
+ Tax
+ Education
+ Clothing
+ Health/Self Care
+ Phone bill
+ Transport
+ Holiday cost
+ Subscriptions
+ Entertainment
+ Household items
+ Major purchases
+ Miscellanious
+}
+
+StockList -- Stock
+Assets -down- IncomeSources
+Assets -down- ExpensesSources
+User -down- Username
+User -down- Email
+User -down- Password
+User <-right- Assets
+User <-left- StockList
+IncomeSources <-left- IncomeCategories
+ExpensesSources <-right- ExpensesCategories
+Stock <-down- Company
+@enduml
