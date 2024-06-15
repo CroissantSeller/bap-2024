@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'Maven'
-        jdk 'JDK_21'
+        jdk 'JAVA_21'
     }
     environment {
         MAVEN_OPTS = '-Dmaven.repo.local=.m2/repository'
@@ -15,12 +15,22 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
-        stage('Test') {
+        stage('Docker Build') {
             steps {
-                sh 'mvn test'
+                script {
+                    docker.build env.DOCKER_IMAGE
+                }
+            }
+        }
+        
+        stage('Docker Push') {
+            steps {
+                script {
+                    docker.image(env.DOCKER_IMAGE).push()
+                }
             }
         }
     }
