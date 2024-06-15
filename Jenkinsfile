@@ -29,8 +29,7 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    docker.image(env.DOCKER_IMAGE).push(
-                    }
+                    docker.image(env.DOCKER_IMAGE).push()
                 }
             }
         }
