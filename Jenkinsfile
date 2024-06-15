@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven 4.0.0'
-        jdk 'JDK 21'
+        maven 'Maven 3.9.5'
+        jdk 'JDK 21.0.2'
     }
     environment {
         MAVEN_OPTS = '-Dmaven.repo.local=.m2/repository'
