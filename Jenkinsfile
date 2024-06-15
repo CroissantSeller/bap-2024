@@ -5,6 +5,9 @@ pipeline {
         maven 'Maven'
         jdk 'JAVA_21'
     }
+    environment {
+        MAVEN_OPTS = '-Dmaven.repo.local=.m2/repository'
+    }
 
     stages {
         stage('Checkout') {
