@@ -1,45 +1,37 @@
 pipeline {
     agent any
+
     tools {
         maven 'Maven'
         jdk 'JAVA_21'
     }
-    environment {
-        MAVEN_OPTS = '-Dmaven.repo.local=.m2/repository'
-    }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/CroissantSeller/bap-2024.git'
             }
         }
+
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
-        stage('Docker Build') {
+
+        stage('Deploy') {
             steps {
-                script {
-                    docker.build env.DOCKER_IMAGE
-                }
-            }
-        }
-        
-        stage('Docker Push') {
-            steps {
-                script {
-                    docker.image(env.DOCKER_IMAGE).push()
-                }
+                sh 'mvn deploy'
             }
         }
     }
+
     post {
         success {
-            echo 'Build completed successfully!'
+            echo 'Pipeline succeeded!'
         }
         failure {
-            echo 'Build failed!'
+            echo 'Pipeline failed!'
         }
     }
 }
